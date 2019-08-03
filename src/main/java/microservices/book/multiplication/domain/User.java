@@ -6,19 +6,21 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * 어플리케이션에서 곱셈을 나타내는 클래스 (a * b)
+ * 사용자 정보를 저장하는 클래스
  */
 @RequiredArgsConstructor
 @Getter
 @ToString
 @EqualsAndHashCode
-public final class Multiplication {
-  private final int factorA;
-  private final int factorB;
+public final class User {
+  private final String alias;
 
   // JSON (역)직렬화를 위한 빈 생성자
-  public Multiplication() {
-    this(0, 0);
+  protected User() {
+    this.alias = null;
   }
 
+  public User(String u) {
+    this.alias = u;
+  }
 }
