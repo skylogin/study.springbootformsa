@@ -46,3 +46,7 @@ buildNumber.properties
 .settings/**/*
 .vscode/**/*
 .sts4-cache/**/*
+.factorypath
+
+# DB
+*.mv.db

@@ -19,7 +19,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static microservices.book.multiplication.controller.MultiplicationResultAttemptController.ResultResponse;
 
 import microservices.book.multiplication.domain.Multiplication;
 import microservices.book.multiplication.domain.MultiplicationResultAttempt;
@@ -38,7 +37,6 @@ public class MultiplicationResultAttemptControllerTest {
 
   // 이 객체는 initFields() 메서드를 이용하여 자동으로 초기화
   private JacksonTester<MultiplicationResultAttempt> jsonResult;
-  private JacksonTester<ResultResponse> jsonResponse;
 
   @Before
   public void setUp() {
@@ -56,12 +54,12 @@ public class MultiplicationResultAttemptControllerTest {
   }
 
   public void genericParameterizedTest(final boolean correct) throws Exception {
-    // given
+    // given (서비스를 테스트하는 것이 아니기때문에 MockBean에서 기대값을 리턴)
     given(multiplicationService.checkAttempt(any(MultiplicationResultAttempt.class))).willReturn(correct);
 
     User user = new User("John");
     Multiplication multiplication = new Multiplication(50, 70);
-    MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500);
+    MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500, false);
 
     // when
     MockHttpServletResponse response = mvc
@@ -70,7 +68,9 @@ public class MultiplicationResultAttemptControllerTest {
 
     // then
     assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-    assertThat(response.getContentAsString()).isEqualTo(jsonResponse.write(new ResultResponse(correct)).getJson());
+    assertThat(response.getContentAsString())
+        .isEqualTo(jsonResult.write(new MultiplicationResultAttempt(attempt.getUser(), attempt.getMultiplication(),
+            attempt.getResultAttempt(), correct)).getJson());
   }
 
 }
