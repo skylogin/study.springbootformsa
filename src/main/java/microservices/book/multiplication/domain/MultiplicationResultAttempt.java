@@ -17,10 +17,13 @@ public final class MultiplicationResultAttempt {
   private final Multiplication multiplication;
   private final int resultAttempt;
 
+  private final boolean correct;
+
   // JSON (역)직렬화를 위한 빈 생성자
   public MultiplicationResultAttempt() {
     this.user = null;
     this.multiplication = null;
     this.resultAttempt = -1;
+    this.correct = false;
   }
 }
