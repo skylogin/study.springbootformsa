@@ -1,5 +1,7 @@
 package microservices.book.multiplication.service;
 
+import java.util.List;
+
 import microservices.book.multiplication.domain.Multiplication;
 import microservices.book.multiplication.domain.MultiplicationResultAttempt;
 
@@ -17,4 +19,8 @@ public interface MultiplicationService {
    */
   public boolean checkAttempt(final MultiplicationResultAttempt resultAttempt);
 
+  /**
+   * @return 5개의 결과를 되돌려주는 메서드
+   */
+  public List<MultiplicationResultAttempt> getStatsForUser(String userAlias);
 }
