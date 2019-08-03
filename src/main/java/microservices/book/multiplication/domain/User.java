@@ -20,7 +20,4 @@ public final class User {
     this.alias = null;
   }
 
-  public User(String u) {
-    this.alias = u;
-  }
 }
