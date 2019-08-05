@@ -47,6 +47,8 @@ buildNumber.properties
 .vscode/**/*
 .sts4-cache/**/*
 .factorypath
+.classpath
+.project
 
 target/**/*
 bin/**/*
