@@ -49,10 +49,23 @@ public class MultiplicationServiceImpl implements MultiplicationService {
 
     // 도전과제(p69) - 같은 곱셈 문제가 있다면 저장하지 않는다.
     // List<MultiplicationResultAttempt> userAttempt = attemptRepository
-    // .findByUserAndMultiplication(user.orElse(attempt.getUser()),
-    // attempt.getMultiplication());
-    // Assert.notEmpty(userAttempt, "기존에 풀었던 문제입니다!!");
+    // .findByUserAliasAndMultiplicationFactorAAndMultiplicationFactorB(user.orElse(attempt.getUser()).getAlias(),
+    // attempt.getMultiplication().getFactorA(),
+    // attempt.getMultiplication().getFactorB());
 
+    // System.out.println("########################################");
+    // System.out.println(user.orElse(attempt.getUser()).getAlias());
+    // System.out.println(attempt.getMultiplication().getFactorA());
+    // System.out.println(attempt.getMultiplication().getFactorB());
+    // System.out.println(userAttempt.size());
+    // System.out.println(userAttempt.isEmpty());
+    // System.out.println(!userAttempt.isEmpty());
+    // System.out.println("@@@");
+    // System.out.println(attempt.isCorrect());
+    // System.out.println(!attempt.isCorrect());
+    // System.out.println("########################################");
+
+    // Assert.isTrue(!userAttempt.isEmpty(), "기존에 풀었던 문제입니다!!");
     // 조작된 답안을 방지
     Assert.isTrue(!attempt.isCorrect(), "채점한 상태로 보낼 수 없습니다!!");
 

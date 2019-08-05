@@ -62,8 +62,7 @@ $(document).ready(function() {
     // API에 맞게 데이터를 조합하기
     var data = {
       user: { alias: userAlias },
-      multiplication: { factorA: a, factorB: b },
-      resultAttempt: attempt
+      multiplication: { factorA: a, factorB: b }
     };
 
     // POST 를 이용해서 데이터 보내기
