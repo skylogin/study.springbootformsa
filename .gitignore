@@ -48,6 +48,7 @@ buildNumber.properties
 .sts4-cache/**/*
 .factorypath
 .classpath
+.project
 
 target/**/*
 bin/**/*
