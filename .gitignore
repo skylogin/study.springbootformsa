@@ -48,6 +48,8 @@ buildNumber.properties
 .sts4-cache/**/*
 .factorypath
 
+target/**/*
+
 # DB
 *.mv.db
 *.trace.db
