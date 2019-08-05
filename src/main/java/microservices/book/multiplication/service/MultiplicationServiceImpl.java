@@ -1,5 +1,6 @@
 package microservices.book.multiplication.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,25 @@ public class MultiplicationServiceImpl implements MultiplicationService {
     // 해당 닉네임의 사용자가 존재하는지 확인
     Optional<User> user = userRepository.findByAlias(attempt.getUser().getAlias());
 
+    // 도전과제(p69) - 같은 곱셈 문제가 있다면 저장하지 않는다.
+    // List<MultiplicationResultAttempt> userAttempt = attemptRepository
+    // .findByUserAliasAndMultiplicationFactorAAndMultiplicationFactorB(user.orElse(attempt.getUser()).getAlias(),
+    // attempt.getMultiplication().getFactorA(),
+    // attempt.getMultiplication().getFactorB());
+
+    // System.out.println("########################################");
+    // System.out.println(user.orElse(attempt.getUser()).getAlias());
+    // System.out.println(attempt.getMultiplication().getFactorA());
+    // System.out.println(attempt.getMultiplication().getFactorB());
+    // System.out.println(userAttempt.size());
+    // System.out.println(userAttempt.isEmpty());
+    // System.out.println(!userAttempt.isEmpty());
+    // System.out.println("@@@");
+    // System.out.println(attempt.isCorrect());
+    // System.out.println(!attempt.isCorrect());
+    // System.out.println("########################################");
+
+    // Assert.isTrue(!userAttempt.isEmpty(), "기존에 풀었던 문제입니다!!");
     // 조작된 답안을 방지
     Assert.isTrue(!attempt.isCorrect(), "채점한 상태로 보낼 수 없습니다!!");
 
@@ -62,4 +82,10 @@ public class MultiplicationServiceImpl implements MultiplicationService {
 
     return isCorrect;
   }
+
+  @Override
+  public List<MultiplicationResultAttempt> getStatsForUser(String userAlias) {
+    return attemptRepository.findTop5ByUserAliasOrderByIdDesc(userAlias);
+  }
+
 }

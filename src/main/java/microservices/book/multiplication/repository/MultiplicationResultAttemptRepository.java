@@ -14,5 +14,12 @@ public interface MultiplicationResultAttemptRepository extends CrudRepository<Mu
   /**
    * @return 닉네임에 해당하는 사용자의 최근 답안 5개
    */
-  List<MultiplicationResultAttempt> findTop5ByUserAliasOrderByIdDesc(String userAlias);
+  public List<MultiplicationResultAttempt> findTop5ByUserAliasOrderByIdDesc(String userAlias);
+
+  /**
+   * 
+   * @return 닉네임에 해당하는 사용자가 풀었던 문제인지 확인
+   */
+  public List<MultiplicationResultAttempt> findByUserAliasAndMultiplicationFactorAAndMultiplicationFactorB(
+      String userAlias, int factorA, int factorB);
 }
