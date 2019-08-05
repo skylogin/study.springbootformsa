@@ -11,26 +11,28 @@ import org.springframework.util.Assert;
 import microservices.book.multiplication.domain.Multiplication;
 import microservices.book.multiplication.domain.MultiplicationResultAttempt;
 import microservices.book.multiplication.domain.User;
+import microservices.book.multiplication.event.EventDispatcher;
+import microservices.book.multiplication.event.MultiplicationSolvedEvent;
 import microservices.book.multiplication.repository.MultiplicationResultAttemptRepository;
 import microservices.book.multiplication.repository.UserRepository;
 
 @Service
 public class MultiplicationServiceImpl implements MultiplicationService {
 
-  @Autowired
   private RandomGeneratorService randomGeneratorService;
-
-  @Autowired
   private MultiplicationResultAttemptRepository attemptRepository;
+  private UserRepository userRepository;
+  private EventDispatcher eventDispatcher;
 
   @Autowired
-  private UserRepository userRepository;
-
   public MultiplicationServiceImpl(final RandomGeneratorService randomGeneratorService,
-      final MultiplicationResultAttemptRepository attemptRepository, final UserRepository userRepository) {
+      final MultiplicationResultAttemptRepository attemptRepository, 
+      final UserRepository userRepository, 
+      final EventDispatcher eventDispatcher) {
     this.randomGeneratorService = randomGeneratorService;
     this.attemptRepository = attemptRepository;
     this.userRepository = userRepository;
+    this.eventDispatcher = eventDispatcher;
   }
 
   @Override
@@ -74,11 +76,19 @@ public class MultiplicationServiceImpl implements MultiplicationService {
         * attempt.getMultiplication().getFactorB();
 
     // 복사본을 만들고 correct 필드를 상황에 맞게 설정
-    MultiplicationResultAttempt checkedAttempt = new MultiplicationResultAttempt(user.orElse(attempt.getUser()),
-        attempt.getMultiplication(), attempt.getResultAttempt(), isCorrect);
+    MultiplicationResultAttempt checkedAttempt = new MultiplicationResultAttempt(
+      user.orElse(attempt.getUser()),
+      attempt.getMultiplication(), 
+      attempt.getResultAttempt(), 
+      isCorrect
+    );
 
     // 답안 저장
     attemptRepository.save(checkedAttempt);
+
+
+    // 이벤트로 결과를 전송
+    eventDispatcher.send(new MultiplicationSolvedEvent(checkedAttempt.getId(), checkedAttempt.getUser().getId(), checkedAttempt.isCorrect()));
 
     return isCorrect;
   }
