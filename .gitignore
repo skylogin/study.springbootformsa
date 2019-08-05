@@ -49,6 +49,7 @@ buildNumber.properties
 .factorypath
 
 target/**/*
+bin/**/*
 
 # DB
 *.mv.db
