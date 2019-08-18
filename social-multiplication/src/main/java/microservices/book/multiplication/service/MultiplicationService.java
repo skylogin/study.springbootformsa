@@ -23,4 +23,9 @@ public interface MultiplicationService {
    * @return 5개의 결과를 되돌려주는 메서드
    */
   public List<MultiplicationResultAttempt> getStatsForUser(String userAlias);
+
+  /**
+   * @return 결과값을 되돌력 주는 메서드
+   */
+  public MultiplicationResultAttempt getMultiplication(Long resultId);
 }
