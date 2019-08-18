@@ -145,4 +145,20 @@ public class MultiplicationServiceImplTest {
     assertThat(latestAttemptsResult).isEqualTo(latestAttempts);
   }
 
+  // @Test
+  // public void checkResultAttempt(){
+  //   // given
+  //   Multiplication multiplication = new Multiplication(50, 60);
+  //   User user = new User("John_doe");
+  //   MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3010, false);
+  //   List<MultiplicationResultAttempt> resultAttempt = Lists.newArrayList(attempt);
+
+  //   // when
+  //   List<MultiplicationResultAttempt> result = multiplicationServiceImpl.getMultiplication(attempt.getId());
+
+  //   // then
+  //   assertThat(result).isEqualTo(resultAttempt);
+
+  // }
+
 }
